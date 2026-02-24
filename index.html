@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Pejabat Kerajaan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="grid-container">
+        <header class="header">
+            <div class="logo">
+                <img src="logo-jabatan.png" alt="LOGO" onerror="this.style.display='none'">
+                <span>JABATAN PENJARA PUNCAK BORNEO</span>
+            </div>
+            <div id="clock" class="clock">00:00:00</div>
+        </header>
+
+        <main class="video-section">
+            <video id="myVideo" autoplay loop muted>
+                <source src="video.mp4" type="video/mp4">
+                Browser anda tidak menyokong tag video.
+            </video>
+        </main>
+
+        <aside class="sidebar">
+            <h3>WAKTU SOLAT</h3>
+            <p id="location-name">Kuala Lumpur</p>
+            <hr>
+            <div class="solat-item"><span>Subuh</span> <b id="subuh">-:--</b></div>
+            <div class="solat-item"><span>Zohor</span> <b id="zohor">-:--</b></div>
+            <div class="solat-item"><span>Asar</span> <b id="asar">-:--</b></div>
+            <div class="solat-item"><span>Maghrib</span> <b id="maghrib">-:--</b></div>
+            <div class="solat-item"><span>Isyak</span> <b id="isyak">-:--</b></div>
+        </aside>
+
+        <footer class="footer">
+            <div class="ticker-wrap">
+                <div class="ticker-text">
+                    INFO: Selamat Menjalankan Tugas | Selamat Menyambut Bulan Ramadhan & Selamat Berpuasa kepada seluruh warga kerja | Sila pastikan lampu dipadamkan sebelum pulang.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

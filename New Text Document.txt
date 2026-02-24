@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <title>Display Pejabat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="grid-container">
+        <header class="header">
+            <div class="logo">LOGO JABATAN</div>
+            <div id="clock" class="clock">00:00:00</div>
+        </header>
+
+        <main class="video-section">
+            <video autoplay loop muted>
+                <source src="video.mp4" type="video/mp4">
+            </video>
+        </main>
+
+        <aside class="sidebar">
+            <h3>Waktu Solat</h3>
+            <div id="solat-list">
+                </div>
+        </aside>
+
+        <footer class="footer">
+            <div class="ticker-wrap">
+                <div class="ticker-text">
+                    INFO SEMASA: Selamat Datang ke Internship! | Sila daftar kehadiran di kaunter.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
