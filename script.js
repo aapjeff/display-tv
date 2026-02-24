@@ -31,8 +31,8 @@ async function getWaktuSolat() {
         document.getElementById('location-name').innerText = "Zon: Kuching, Sarawak";
 
     } catch (error) {
-        console.error("Tak boleh tarik API:", error);
-        document.getElementById('location-name').innerText = "Ralat Sambungan API";
+        console.error("Can't pull API:", error);
+        document.getElementById('location-name').innerText = "API Connected";
         
         document.getElementById('subuh').innerText = "05:15 AM";
         document.getElementById('zohor').innerText = "12:45 PM";
@@ -43,4 +43,5 @@ async function getWaktuSolat() {
 }
 
 getWaktuSolat();
+
 
