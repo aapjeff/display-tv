@@ -25,18 +25,33 @@ body { background: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, 
 .solat-item b { color: #00ff00; }
 
 /* Running Text */
-.footer { grid-column: 1 / span 2; background: #cc0000; display: flex; align-items: center; border-top: 4px solid #fff; }
-.ticker-wrap { width: 100%; overflow: hidden; }
+.footer { 
+    grid-column: 1 / span 2; 
+    background: #cc0000; 
+    display: flex; 
+    align-items: center; 
+    overflow: hidden; /* Penting supaya teks tak terkeluar skrin */
+    border-top: 4px solid #fff;
+}
+.ticker-wrap { 
+    width: 100%; 
+}
 .ticker-text {
     display: inline-block;
     white-space: nowrap;
     font-size: 28px;
     font-weight: bold;
-    padding-left: 100%;
-    animation: gerak 30s linear infinite;
+    color: white;
+    padding-left: 100%; /* Mula dari hujung kanan skrin */
+    animation: gerak-loop 30s linear infinite; /* 'infinite' untuk buat dia loop selamanya */
 }
 
-@keyframes gerak {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-150%); } /* Adjust ikut panjang teks */
+/* Animasi Loop */
+@keyframes gerak-loop {
+    0% { 
+        transform: translateX(0); 
+    }
+    100% { 
+        transform: translateX(-200%); /* Dia akan gerak sampai habis ke kiri */
+    }
 }
