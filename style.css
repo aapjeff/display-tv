@@ -3,7 +3,7 @@ body { background: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, 
 
 .grid-container {
     display: grid;
-    grid-template-columns: 75% 25%; /* Video besar, Sidebar kecil sikit */
+    grid-template-columns: 75% 25%; /* Video besar (size), Sidebar kecik dikit */
     grid-template-rows: 100px 1fr 70px;
     height: 100vh;
 }
@@ -30,7 +30,7 @@ body { background: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, 
     background: #cc0000; 
     display: flex; 
     align-items: center; 
-    overflow: hidden; /* Penting supaya teks tak terkeluar skrin */
+    overflow: hidden; /* pake fitnya, x terkeluar screen */
     border-top: 4px solid #fff;
 }
 .ticker-wrap { 
@@ -42,16 +42,16 @@ body { background: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, 
     font-size: 28px;
     font-weight: bold;
     color: white;
-    padding-left: 100%; /* Mula dari hujung kanan skrin */
-    animation: gerak-loop 30s linear infinite; /* 'infinite' untuk buat dia loop selamanya */
+    padding-left: 100%; /*kanan ke kiri */
+    animation: gerak-loop 30s linear infinite; /* 'loop ma */
 }
 
-/* Animasi Loop */
 @keyframes gerak-loop {
     0% { 
         transform: translateX(0); 
     }
     100% { 
-        transform: translateX(-200%); /* Dia akan gerak sampai habis ke kiri */
+        transform: translateX(-200%); /* finish lining */
     }
 }
+
