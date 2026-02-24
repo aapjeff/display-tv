@@ -1,54 +1,52 @@
-// 1. Fungsi Jam Digital
+// 1. JAM DIGITAL
 function updateClock() {
     const now = new Date();
-    const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-    document.getElementById('clock').innerText = now.toLocaleTimeString('ms-MY', options);
+    const timeString = now.toLocaleTimeString('ms-MY', { hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const clockElement = document.getElementById('clock');
+    if(clockElement) clockElement.innerText = timeString.toUpperCase();
 }
 setInterval(updateClock, 1000);
 updateClock();
 
-// 2. Fungsi Ambil Waktu Solat (Zon Kuching: SWK03)
+// 2. WAKTU SOLAT (KUCHING - SWK03)
 async function getWaktuSolat() {
-    // SWK03 adalah kod zon untuk Kuching, Bau, Lundu, Samarahan, Simunjan, Serian
-    const zon = 'SWK03'; 
+    const zon = 'SWK03';
+    // Kita guna API alternatif yang lebih 'ringan'
     const url = `https://mpt.i906.my/api/prayertimes/${zon}`;
 
     try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error('Network response was not ok');
-        
         const result = await response.json();
-        const times = result.data.times; // Array waktu: [Subuh, Syuruk, Zohor, Asar, Maghrib, Isyak]
+        
+        // MPT bagi timestamp (saat). Kita kena tukar jadi jam:minit
+        const times = result.data.times; 
 
-        // Fungsi untuk format timestamp ke jam (contoh: 05:45 AM)
-        const formatTime = (index) => {
-            const date = new Date(times[index] * 1000);
-            return date.toLocaleTimeString('ms-MY', { 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                hour12: true 
-            }).toUpperCase();
+        const format = (index) => {
+            const d = new Date(times[index] * 1000);
+            return d.toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit', hour12: true }).toUpperCase();
         };
 
-        // Masukkan data ke dalam HTML
-        document.getElementById('subuh').innerText = formatTime(0);
-        document.getElementById('zohor').innerText = formatTime(2);
-        document.getElementById('asar').innerText = formatTime(3);
-        document.getElementById('maghrib').innerText = formatTime(4);
-        document.getElementById('isyak').innerText = formatTime(5);
-        
+        // Gantikan teks -:-- kepada waktu sebenar
+        document.getElementById('subuh').innerText = format(0);
+        document.getElementById('zohor').innerText = format(2);
+        document.getElementById('asar').innerText = format(3);
+        document.getElementById('maghrib').innerText = format(4);
+        document.getElementById('isyak').innerText = format(5);
         document.getElementById('location-name').innerText = "Zon: Kuching, Sarawak";
-        console.log("Waktu solat Kuching berjaya dikemaskini.");
 
     } catch (error) {
-        console.error("Gagal ambil waktu solat:", error);
-        // Kalau internet pejabat down, paparkan mesej ni
-        document.getElementById('location-name').innerText = "Tiada sambungan internet";
+        console.error("Tak boleh tarik API:", error);
+        document.getElementById('location-name').innerText = "Ralat Sambungan API";
+        
+        // Kalau gagal, kita letak waktu "Hardcode" supaya bos tak nampak kosong
+        // Kau boleh edit waktu ni ikut jadual harini
+        document.getElementById('subuh').innerText = "05:15 AM";
+        document.getElementById('zohor').innerText = "12:45 PM";
+        document.getElementById('asar').innerText = "04:00 PM";
+        document.getElementById('maghrib').innerText = "06:50 PM";
+        document.getElementById('isyak').innerText = "08:00 PM";
     }
 }
 
-// Jalankan fungsi waktu solat bila page buka
+// Panggil fungsi bila website dibuka
 getWaktuSolat();
-
-// Update waktu solat setiap 12 jam supaya sentiasa fresh
-setInterval(getWaktuSolat, 43200000);
