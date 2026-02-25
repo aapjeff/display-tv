@@ -1,47 +1,61 @@
-// 1. JAM DIGITAL
+// 1. JAM DIGITAL LIVE
 function updateClock() {
     const now = new Date();
-    const timeString = now.toLocaleTimeString('ms-MY', { hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const timeString = now.toLocaleTimeString('ms-MY', { 
+        hour12: true, 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit' 
+    });
     const clockElement = document.getElementById('clock');
     if(clockElement) clockElement.innerText = timeString.toUpperCase();
 }
 setInterval(updateClock, 1000);
 updateClock();
 
+// 2. FUNGSI TUKAR 24 JAM KE 12 JAM
+function tkr12Jam(masa) {
+    if(!masa) return "-:--";
+    let [jam, minit] = masa.split(':');
+    jam = parseInt(jam);
+    let ampm = jam >= 12 ? 'PM' : 'AM';
+    jam = jam % 12;
+    jam = jam ? jam : 12; // kalau 0, jadi 12
+    return `${jam}:${minit} ${ampm}`;
+}
+
+// 3. WAKTU SOLAT LIVE (KUCHING/PADAWAN)
 async function getWaktuSolat() {
-    const zon = 'SWK03';
-    const url = `https://mpt.i906.my/api/prayertimes/${zon}`;
+    const lat = 1.43;
+    const lng = 110.33;
+    const method = 11; // Method JAKIM
+
+    const url = `https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=${method}`;
 
     try {
         const response = await fetch(url);
-        const result = await response.json();
+        if (!response.ok) throw new Error('Network Error');
         
-        const times = result.data.times; 
+        const result = await response.json();
+        const t = result.data.timings;
 
-        const format = (index) => {
-            const d = new Date(times[index] * 1000);
-            return d.toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit', hour12: true }).toUpperCase();
-        };
-
-        document.getElementById('subuh').innerText = format(0);
-        document.getElementById('zohor').innerText = format(2);
-        document.getElementById('asar').innerText = format(3);
-        document.getElementById('maghrib').innerText = format(4);
-        document.getElementById('isyak').innerText = format(5);
-        document.getElementById('location-name').innerText = "Zon: Kuching, Sarawak";
+        // Masukkan data LIVE dengan format 12 jam
+        document.getElementById('subuh').innerText = tkr12Jam(t.Fajr);
+        document.getElementById('zohor').innerText = tkr12Jam(t.Dhuhr);
+        document.getElementById('asar').innerText = tkr12Jam(t.Asr);
+        document.getElementById('maghrib').innerText = tkr12Jam(t.Maghrib);
+        document.getElementById('isyak').innerText = tkr12Jam(t.Isha);
+        
+        document.getElementById('location-name').innerText = "Zon: Kuching (LIVE)";
 
     } catch (error) {
-        console.error("Can't pull API:", error);
-        document.getElementById('location-name').innerText = "API Connected";
+        console.error("Gagal tarik API:", error);
+        document.getElementById('location-name').innerText = "MENYAMBUNG SEMULA...";
         
-        document.getElementById('subuh').innerText = "05:15 AM";
-        document.getElementById('zohor').innerText = "12:45 PM";
-        document.getElementById('asar').innerText = "04:00 PM";
-        document.getElementById('maghrib').innerText = "06:50 PM";
-        document.getElementById('isyak').innerText = "08:00 PM";
+        // Cuba panggil balik setiap 10 saat kalau gagal
+        setTimeout(getWaktuSolat, 10000);
     }
 }
 
+// Jalankan fungsi
 getWaktuSolat();
-
-
