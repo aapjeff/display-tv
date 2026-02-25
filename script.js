@@ -1,4 +1,4 @@
-// 1. JAM DIGITAL LIVE
+
 function updateClock() {
     const now = new Date();
     const timeString = now.toLocaleTimeString('ms-MY', { 
@@ -13,7 +13,6 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// 2. FUNGSI TUKAR 24 JAM KE 12 JAM
 function tkr12Jam(masa) {
     if(!masa) return "-:--";
     let [jam, minit] = masa.split(':');
@@ -24,7 +23,7 @@ function tkr12Jam(masa) {
     return `${jam}:${minit} ${ampm}`;
 }
 
-// 3. WAKTU SOLAT LIVE (KUCHING/PADAWAN)
+//live
 async function getWaktuSolat() {
     const lat = 1.43;
     const lng = 110.33;
@@ -39,7 +38,6 @@ async function getWaktuSolat() {
         const result = await response.json();
         const t = result.data.timings;
 
-        // Masukkan data LIVE dengan format 12 jam
         document.getElementById('subuh').innerText = tkr12Jam(t.Fajr);
         document.getElementById('zohor').innerText = tkr12Jam(t.Dhuhr);
         document.getElementById('asar').innerText = tkr12Jam(t.Asr);
@@ -59,3 +57,4 @@ async function getWaktuSolat() {
 
 // Jalankan fungsi
 getWaktuSolat();
+
