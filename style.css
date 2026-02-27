@@ -3,11 +3,74 @@ body { background: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, 
 
 .grid-container {
     display: grid;
-    grid-template-columns: 75% 25%; /* Video besar (size), Sidebar kecik dikit */
+    grid-template-columns: 75% 25%; /* Video besar, Sidebar kecil sikit */
     grid-template-rows: 100px 1fr 70px;
     height: 100vh;
 }
 
+.logo-container{
+	text-align: center;
+	padding: 20px 0;
+}
+
+.header .logo {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+.header .logo img {
+    height: 60px; 
+    width: auto;
+    object-fit: contain;
+}
+
+.header .logo span {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.logo {
+    width: 80%; /*pake control size logo (80% daripada lebar sidebar) */
+    max-width: 200px; 
+    height: auto;
+    filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.3)); /*0*/
+}
+
+.header {
+    display: flex;
+    justify-content: space-between; /* Logo kiri, Jam kanan */
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #001f3f; /* darkblue prison */
+    color: white;
+}
+
+.header .logo {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Jarak antara gambar logo & teks */
+    white-space: nowrap; /* PENTING: Halang teks daripada 'turun' bawah */
+}
+
+.header .logo img {
+    height: 60px; /* Saiz logo */
+    width: auto;
+}
+
+.header .logo span {
+    font-size: 28px; /* Saiz tulisan */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Jam biar besar dikit rah hujung kanan */
+.clock {
+    font-size: 35px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
 /* Header */
 .header { grid-column: 1 / span 2; background: linear-gradient(90deg, #001f3f, #003366); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; border-bottom: 4px solid #ffcc00; }
 .logo { display: flex; align-items: center; gap: 20px; font-size: 24px; font-weight: bold; }
@@ -30,7 +93,7 @@ body { background: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, 
     background: #cc0000; 
     display: flex; 
     align-items: center; 
-    overflow: hidden; /* pake fitnya, x terkeluar screen */
+    overflow: hidden;
     border-top: 4px solid #fff;
 }
 .ticker-wrap { 
@@ -42,16 +105,16 @@ body { background: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, 
     font-size: 28px;
     font-weight: bold;
     color: white;
-    padding-left: 100%; /*kanan ke kiri */
-    animation: gerak-loop 30s linear infinite; /* 'loop ma */
+    padding-left: 100%; /* Mula dari hujung kanan skrin */
+    animation: gerak-loop 30s linear infinite; /* 'infinite' untuk buat dia loop selamanya */
 }
 
+/* Animasi Loop */
 @keyframes gerak-loop {
     0% { 
         transform: translateX(0); 
     }
     100% { 
-        transform: translateX(-200%); /* finish lining */
+        transform: translateX(-200%); /* Dia akan gerak sampai habis ke kiri */
     }
 }
-
