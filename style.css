@@ -15,8 +15,8 @@ body {
 /* --- 2. GRID UTAMA (BAPA) --- */
 .grid-container {
     display: grid;
-    grid-template-columns: 75% 25%; /* Gambar/Slideshow 75%, Sidebar Solat 25% */
-    grid-template-rows: 100px 1fr 70px; /* Header 100px, Tengah huni skrin, Footer 70px */
+    grid-template-columns: 75% 25%;
+    grid-template-rows: 100px calc(100vh - 170px) 70px; /* Paksa baris tengah ambil baki tinggi skrin dengan tepat */
     height: 100vh;
     width: 100vw;
 }
@@ -61,12 +61,17 @@ body {
 
 /* --- 4. KOTAK SLIDESHOW GAMBAR (TENGAH KIRI) --- */
 .video-section {
-    grid-column: 1; /* Duduk di kawasan 75% sebelah kiri */
+    grid-column: 1;
+    grid-row: 2; /* Dikunci pada baris tengah grid */
     position: relative;
-    background: #000; 
-    width: 100%;
-    height: 100%;
+    background: #fff; /* Tukar ke putih supaya kalau ada baki ruang, dia sebati dengan warna infografik kau */
+    width: 100% !important;
+    height: 100% !important;
     overflow: hidden;
+    padding: 20px; /* Tambah ruang keliling supaya tajuk atas infografik tak terpotong rapat ke garisan kuning */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* --- 5. GAMBAR SLIDE (PASTIKAN FULL) --- */
@@ -76,10 +81,10 @@ body {
     left: 0;
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important; /* Potong gambar secara proporsional biar penuh ruang */
-    object-position: center center; /* Fokus bahagian tengah gambar */
+    object-fit: contain !important; 
+    object-position: center center;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out; /* Efek fade bertukar gambar */
+    transition: opacity 1.5s ease-in-out;
 }
 
 .slide.active {
