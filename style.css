@@ -109,6 +109,27 @@ body { background: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, 
     animation: gerak-loop 30s linear infinite; /* 'infinite' untuk buat dia loop selamanya */
 }
 
+.video-section {
+    position: relative;
+    background: black;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Biar gambar penuhi kotak tanpa penyet */
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out; /* Efek fade 1.5 saat */
+}
+
+.slide.active {
+    opacity: 1; /* Gambar yang ada class 'active' sahaja muncul */
+}
+
 /* Animasi Loop */
 @keyframes gerak-loop {
     0% { 
