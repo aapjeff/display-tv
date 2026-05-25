@@ -1,93 +1,129 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
+/* --- 1. RESET ASAS --- */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
+body { 
+    background: #000; 
+    color: white; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    overflow: hidden; 
+}
+
+/* --- 2. GRID UTAMA (BAPA) --- */
 .grid-container {
     display: grid;
-    grid-template-columns: 75% 25%; /* Video besar, Sidebar kecil sikit */
-    grid-template-rows: 100px 1fr 70px;
+    grid-template-columns: 75% 25%; /* Gambar/Slideshow 75%, Sidebar Solat 25% */
+    grid-template-rows: 100px 1fr 70px; /* Header 100px, Tengah huni skrin, Footer 70px */
     height: 100vh;
+    width: 100vw;
 }
 
-.logo-container{
-	text-align: center;
-	padding: 20px 0;
+/* --- 3. HEADER (BAR ATAS - LOGO & JAM) --- */
+.header { 
+    grid-column: 1 / span 2; 
+    background: linear-gradient(90deg, #001f3f, #003366); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0 40px; 
+    border-bottom: 4px solid #ffcc00; 
 }
 
-.header .logo {
-    display: flex;
-    align-items: center;
-    gap: 15px; 
+.header .logo { 
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+    white-space: nowrap; 
 }
 
-.header .logo img {
+.header .logo img { 
     height: 60px; 
     width: auto;
     object-fit: contain;
 }
 
-.header .logo span {
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-.logo {
-    width: 80%; /*pake control size logo (80% daripada lebar sidebar) */
-    max-width: 200px; 
-    height: auto;
-    filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.3)); /*0*/
-}
-
-.header {
-    display: flex;
-    justify-content: space-between; /* Logo kiri, Jam kanan */
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #001f3f; /* darkblue prison */
-    color: white;
-}
-
-.header .logo {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Jarak antara gambar logo & teks */
-    white-space: nowrap; /* PENTING: Halang teks daripada 'turun' bawah */
-}
-
-.header .logo img {
-    height: 60px; /* Saiz logo */
-    width: auto;
-}
-
-.header .logo span {
-    font-size: 28px; /* Saiz tulisan */
-    font-weight: bold;
+.header .logo span { 
+    font-size: 28px; 
+    font-weight: bold; 
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 
-/* Jam biar besar dikit rah hujung kanan */
-.clock {
-    font-size: 35px;
+.clock { 
+    font-size: 40px; 
     font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace; 
+    color: #ffcc00; 
 }
-/* Header */
-.header { grid-column: 1 / span 2; background: linear-gradient(90deg, #001f3f, #003366); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; border-bottom: 4px solid #ffcc00; }
-.logo { display: flex; align-items: center; gap: 20px; font-size: 24px; font-weight: bold; }
-.clock { font-size: 40px; font-family: 'Courier New', Courier, monospace; color: #ffcc00; }
 
-/* Video */
-.video-section { background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.video-section video { width: 100%; height: 100%; object-fit: cover; }
+/* --- 4. KOTAK SLIDESHOW GAMBAR (TENGAH KIRI) --- */
+.video-section {
+    grid-column: 1; /* Duduk di kawasan 75% sebelah kiri */
+    position: relative;
+    background: #000; 
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
 
-/* Sidebar Solat */
-.sidebar { background: #111; padding: 30px; display: flex; flex-direction: column; gap: 15px; border-left: 2px solid #222; }
-.sidebar h3 { color: #ffcc00; text-align: center; letter-spacing: 2px; }
-#location-name { text-align: center; font-size: 14px; color: #888; }
-.solat-item { display: flex; justify-content: space-between; font-size: 22px; padding: 10px; border-bottom: 1px solid #333; }
-.solat-item b { color: #00ff00; }
+/* --- 5. GAMBAR SLIDE (PASTIKAN FULL) --- */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* Potong gambar secara proporsional biar penuh ruang */
+    object-position: center center; /* Fokus bahagian tengah gambar */
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out; /* Efek fade bertukar gambar */
+}
 
-/* Running Text */
+.slide.active {
+    opacity: 1;
+}
+
+/* --- 6. SIDEBAR WAKTU SOLAT (TENGAH KANAN) --- */
+.sidebar { 
+    grid-column: 2; /* Duduk di kawasan 25% sebelah kanan */
+    background: #111; 
+    padding: 30px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+    border-left: 2px solid #222; 
+    height: 100%;
+}
+
+.sidebar h3 { 
+    color: #ffcc00; 
+    text-align: center; 
+    letter-spacing: 2px; 
+    font-size: 24px;
+}
+
+#location-name { 
+    text-align: center; 
+    font-size: 14px; 
+    color: #888; 
+}
+
+.solat-item { 
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 22px; 
+    padding: 10px; 
+    border-bottom: 1px solid #333; 
+}
+
+.solat-item b { 
+    color: #00ff00; 
+}
+
+/* --- 7. RUNNING TEXT (BAR BAWAH) --- */
 .footer { 
     grid-column: 1 / span 2; 
     background: #cc0000; 
@@ -96,51 +132,27 @@ body { background: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, 
     overflow: hidden;
     border-top: 4px solid #fff;
 }
+
 .ticker-wrap { 
     width: 100%; 
 }
+
 .ticker-text {
     display: inline-block;
     white-space: nowrap;
     font-size: 28px;
     font-weight: bold;
     color: white;
-    padding-left: 100%; /* Mula dari hujung kanan skrin */
-    animation: gerak-loop 30s linear infinite; /* 'infinite' untuk buat dia loop selamanya */
+    padding-left: 100%; 
+    animation: gerak-loop 30s linear infinite; 
 }
 
-.video-section {
-    position: relative;
-    background: #000; /* Letak background hitam siap-siap */
-    width: 100%;
-    height: 100%;
-    min-height: 100%; /* Paksa kotak ambil tinggi penuh */
-    overflow: hidden;
-    display: block; /* Tukar ke block supaya kedudukan absolute slide berfungsi 100% */
-}
-
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;  /* !important ni untuk potong mana-mana kod lain yang sekat saiz */
-    height: 100% !important; /* Paksa tinggi penuh skrin */
-    object-fit: cover !important; /* Kunci utama untuk crop proporsional tanpa penyet */
-    object-position: center center; /* Sentiasa fokus kat tengah gambar */
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-}
-
-.slide.active {
-    opacity: 1;
-}
-
-/* Animasi Loop */
+/* --- 8. ANIMASI BANNER BERGERAK --- */
 @keyframes gerak-loop {
     0% { 
         transform: translateX(0); 
     }
     100% { 
-        transform: translateX(-200%); /* Dia akan gerak sampai habis ke kiri */
+        transform: translateX(-200%); 
     }
 }
