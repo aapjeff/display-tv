@@ -50,7 +50,7 @@ async function getWaktuSolat() {
         console.error("Gagal tarik API:", error);
         document.getElementById('location-name').innerText = "MENYAMBUNG SEMULA...";
         
-        // Cuba panggil balik setiap 10 saat kalau gagal
+        // Cuba panggil balik setiap 10 saat jika ada sebarang error
         setTimeout(getWaktuSolat, 10000);
     }
 }
