@@ -111,25 +111,28 @@ body { background: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, 
 
 .video-section {
     position: relative;
-    background: black;
+    background: #000; /* Letak background hitam siap-siap */
+    width: 100%;
+    height: 100%;
+    min-height: 100%; /* Paksa kotak ambil tinggi penuh */
     overflow: hidden;
+    display: block; /* Tukar ke block supaya kedudukan absolute slide berfungsi 100% */
 }
 
 .slide {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;     
-    object-position: center; 
-    
+    width: 100% !important;  /* !important ni untuk potong mana-mana kod lain yang sekat saiz */
+    height: 100% !important; /* Paksa tinggi penuh skrin */
+    object-fit: cover !important; /* Kunci utama untuk crop proporsional tanpa penyet */
+    object-position: center center; /* Sentiasa fokus kat tengah gambar */
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
 }
 
 .slide.active {
-    opacity: 1; /* Gambar yang ada class 'active' sahaja muncul */
+    opacity: 1;
 }
 
 /* Animasi Loop */
