@@ -19,7 +19,7 @@ function tkr12Jam(masa) {
     jam = parseInt(jam);
     let ampm = jam >= 12 ? 'PM' : 'AM';
     jam = jam % 12;
-    jam = jam ? jam : 12; // kalau 0, jadi 12
+    jam = jam ? jam : 12; 
     return `${jam}:${minit} ${ampm}`;
 }
 
